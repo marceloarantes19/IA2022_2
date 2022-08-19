@@ -24,7 +24,7 @@ class Mapa(Grafo):
 
 		self.insereAresta("Arad","Zerind")
 		self.insereAresta("Arad","Sibiu")
-		self.insereAresta("Arad","Oradea")
+		self.insereAresta("Arad","Timisoara")
 
 		self.insereAresta("Bucharest","Fagaras")
 		self.insereAresta("Bucharest","Pitesti")

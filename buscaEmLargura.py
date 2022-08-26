@@ -1,25 +1,27 @@
-from Fila import Fila
-from MapaDaRomenia import Mapa
+class BuscaEmLargura:
+  def largura(self, o, d, g):
+    fila       = []  # Gerência especial da Fila para a busca em Largura
+    pai        = []  # Lista de Pais para dar o caminho
+    inicioFila = -1  # Início da fila
+    fila.append(o)   # Adicionei na fila - Não retirar mais
+    pai.append(-1)   # A origem não tem pai
+    while not inicioFila>=len(fila):
+      inicioFila = inicioFila + 1
+      atual = fila[inicioFila] # pega o primeiro elemento da fila
+      print("Visitando:", atual.getNome())
+      if atual == d:
+        self.mostraCaminho(inicioFila, fila, pai)
+        return True
+      else:
+        for i in g.getSucessor(atual):
+          fila.append(i)
+          pai.append(inicioFila)
+    return False
 
-def largura(o, d, g):
-  fila = Fila()
-  fila.enfileira(o)
-  while not fila.filaVazia():
-    atual = fila.desefileira()
-    print(atual.getNome())
-    if atual == d:
-      print("encontrei")
-      return True
+  def mostraCaminho(self, inicioFila, fila, pai):
+    if inicioFila == -1:
+      print("\n\nCaminho ************************")
     else:
-      for i in g.getSucessor(atual):
-        fila.enfileira(i)
-  return False
+      self.mostraCaminho(pai[inicioFila], fila, pai)
+      print(fila[inicioFila].getNome())
 
-m = Mapa()
-m.geraMapa()
-origem = input("Digite a cidade de origem: ")
-destino = input("Digite a cidade de Destino =: ")
-ori, oex = m.verticeExistePorNome(origem)
-des, dex = m.verticeExistePorNome(destino)
-if oex and dex:
-  largura(ori, des, m)
